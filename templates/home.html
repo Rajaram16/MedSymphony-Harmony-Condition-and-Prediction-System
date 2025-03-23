@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEDSYMPHONY</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> 
+</head>
+<body>
+    
+    <div class="container">
+        <div class="navbar">
+            <ul>
+                <b>
+                <li><a href="{{ url_for('home') }}">HOME</a></li>
+                <li><a href="{{ url_for('index') }}">VIEW DATASETS</a></li>
+                <li class="dropdown">
+                    <a class="reservation" href="">Different Types of Disease Prediction</a>
+                    <div class="dropdown-content">
+                        <center>
+                            <a href="{{ url_for('heart') }}">Heart Disease Prediction</a>
+                        </center>
+                    </div>
+                </li>
+                </b>
+            </ul>
+        </div>
+    
+        <form method="POST" action="/">
+            <label for="rawtext" class="animate__animated animate__fadeIn" style=" font-weight:bold;">Enter your Condition:</label><br>
+            <br>
+            <textarea id="rawtext" name="rawtext" rows="6" cols="50" required class="animate__animated animate__fadeIn">{{ rawtext }}</textarea>
+            <br><br>
+            <button type="submit" class="animate__animated animate__fadeInUp" style=" font-weight:bold;">Predict</button>
+        </form>
+        
+        {% if result %}
+            <h2 class="animate__animated animate__fadeInUp" style="color: white;">Prediction Result:</h2>
+            <p class="animate__animated animate__fadeInUp" style=" font-weight:bold; font-size:20px; background:#ffffff42; border-radius:15px; padding:12px; width:fit-content; margin:auto; color:cyan;">Condition: <b style="font-size:26px; color:white;">{{ result }}</b></p>
+            <p class="animate__animated animate__fadeInUp" style=" font-weight:bold; font-size:20px; color: white;">Top Recommended Drugs:</p>
+            <ul class="animate__animated animate__fadeInUp unordered_list">
+                {% for drug in top_drugs %}
+                    <li class="lists">{{ drug }}</li>
+                {% endfor %}
+            </ul><br>
+
+            {# CONDITION-SPECIFIC INFORMATION BLOCKS BELOW #}
+            {% if result == "Birth Control" %}
+                <div class="condition-info animate__animated animate__fadeInUp">
+                    <div class="info"><h3>Information about Birth Control:</h3>
+                    <p>Birth control methods include hormonal contraceptives, barrier methods, and more. Consult with a healthcare professional to find the best option for you.</p>
+                </div><div class="precautions"><h3>Precautions and Measures:</h3>
+                    <ul>
+                        <li>Consistent and correct use of the chosen contraceptive method.</li>
+                        <li>Regular check-ups with a healthcare provider.</li>
+                    </ul></div>
+                </div>
+
+            {% elif result == "Depression" %}
+                <div class="condition-info animate__animated animate__fadeInUp">
+                    <div class="info"><h3>Information about Depression:</h3>
+                    <p>Depression is a mental health disorder characterized by persistent feelings of sadness and a lack of interest or pleasure in daily activities.</p>
+                    </div><div class="precautions"><h3>Precautions and Measures:</h3>
+                    <ul>
+                        <li>Build a support system.</li>
+                        <li>Engage in regular physical activity.</li>
+                        <li>Practice self-care.</li>
+                        <li>Establish a daily routine.</li>
+                        <li>Avoid excessive alcohol and substance use.</li>
+                        <li>Consider medication if prescribed.</li>
+                        <li>Attend therapy sessions consistently.</li>
+                        <li>Monitor and challenge negative thoughts.</li>
+                        <li>Educate yourself and loved ones about depression.</li>
+                    </ul></div>
+                </div>
+
+            {% elif result == "Pain" %}
+                <div class="condition-info animate__animated animate__fadeInUp">
+                    <div class="info"><h3>Information about Pain:</h3>
+                    <p>Pain can be caused by various factors. Consult with a healthcare professional to determine the cause and appropriate treatment.</p>
+                </div><div class="precautions"><h3>Precautions and Measures:</h3>
+                    <ul>
+                        <li>Follow the recommended treatment plan.</li>
+                        <li>Practice stress-reducing techniques.</li>
+                    </ul></div>
+                </div>
+
+            {% elif result == "Anxiety" %}
+                <div class="condition-info animate__animated animate__fadeInUp">
+                    <div class="info"><h3>Information about Anxiety:</h3>
+                    <p>Anxiety is a mental health condition characterized by excessive worry or fear.</p>
+                </div><div class="precautions"><h3>Precautions and Measures:</h3>
+                    <ul>
+                        <li>Practice relaxation techniques and mindfulness.</li>
+                        <li>Consider therapy or counseling.</li>
+                    </ul></div>
+                </div>
+
+            {% elif result == "Bipolar Disorder" %}
+                <div class="condition-info animate__animated animate__fadeInUp">
+                    <div class="info"><h3>Information about Bipolar Disorder:</h3>
+                    <p>Bipolar disorder is a mental health condition characterized by extreme mood swings.</p>
+                </div><div class="precautions"><h3>Precautions and Measures:</h3>
+                    <ul>
+                        <li>Adhere to prescribed medication regimens.</li>
+                        <li>Regular follow-ups with mental health professionals.</li>
+                    </ul></div>
+                </div>
+
+            {% elif result == "ADHD" %}
+                <div class="condition-info animate__animated animate__fadeInUp">
+                    <div class="info"><h3>Information about ADHD:</h3>
+                    <p>ADHD is a neurodevelopmental disorder marked by inattention, hyperactivity, and impulsivity.</p>
+                </div><div class="precautions"><h3>Precautions and Measures:</h3>
+                    <ul>
+                        <li>Establish routines and structure.</li>
+                        <li>Break tasks into smaller steps.</li>
+                        <li>Use visual aids and reminders.</li>
+                        <li>Encourage regular physical activity.</li>
+                        <li>Explore behavioral therapy.</li>
+                        <li>Consider medication if prescribed.</li>
+                        <li>Provide a quiet and organized workspace.</li>
+                        <li>Encourage healthy sleep habits.</li>
+                        <li>Teach and reinforce social skills.</li>
+                        <li>Involve family and support networks.</li>
+                        <li>Stay informed and seek guidance.</li>
+                    </ul></div>
+                </div>
+
+            {% elif result == "Diabetes, Type 2" %}
+                <div class="condition-info animate__animated animate__fadeInUp">
+                    <div class="info"><h3>Information about Diabetes, Type 2:</h3>
+                    <p>A chronic condition affecting how your body processes sugar due to insulin resistance or deficiency.</p>
+                </div><div class="precautions"><h3>Precautions and Measures:</h3>
+                    <ul>
+                        <li>Adopt a balanced diet.</li>
+                        <li>Maintain a healthy weight.</li>
+                        <li>Engage in regular physical activity.</li>
+                        <li>Monitor blood sugar levels.</li>
+                        <li>Take medications as prescribed.</li>
+                        <li>Manage stress and stay hydrated.</li>
+                        <li>Quit smoking.</li>
+                        <li>Regular check-ups and foot care.</li>
+                        <li>Limit alcohol and sugar intake.</li>
+                    </ul></div>
+                </div>
+
+            {% elif result == "High Blood Pressure" %}
+                <div class="condition-info animate__animated animate__fadeInUp">
+                    <div class="info"><h3>Information about High Blood Pressure:</h3>
+                    <p>A condition where blood pressure in the arteries is consistently elevated, increasing risk of heart disease.</p>
+                </div><div class="precautions"><h3>Precautions and Measures:</h3>
+                    <ul>
+                        <li>Eat a heart-healthy diet.</li>
+                        <li>Maintain a healthy weight.</li>
+                        <li>Exercise regularly.</li>
+                        <li>Limit alcohol and caffeine.</li>
+                        <li>Quit smoking and manage stress.</li>
+                        <li>Monitor blood pressure regularly.</li>
+                        <li>Take medications as prescribed.</li>
+                        <li>Ensure quality sleep.</li>
+                    </ul></div>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <div class="content">
+        <h3><b>Welcome to MedSymphony</b></h3>
+        <h1>HARMONY OF CONDITIONS AND PREDICTIONS</h1>
+        <p>MedSymphony specializes in advanced hormonal health solutions, offering precise diagnosis and
+            effective medication for balanced well-being.</p>
+    </div>
+
+</body>
+</html>

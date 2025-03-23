@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='heart.css') }}">
+</head>
+<body>
+    <a href="{{ url_for('home') }}" class="logout-btn">Logout</a>
+
+    <div class="container">
+        <h1>Heart Disease Prediction</h1>
+        
+        <!-- ✅ Fixed form action -->
+        <form action="{{ url_for('heart') }}" method="post">
+            <input type="text" name="age" placeholder="Age" required>
+            <input type="text" name="sex" placeholder="Sex (0: Female, 1: Male)" required>
+            <input type="text" name="cp" placeholder="Chest Pain Type" required>
+            <input type="text" name="trestbps" placeholder="Resting Blood Pressure" required>
+            <input type="text" name="chol" placeholder="Cholesterol Level" required>
+            <input type="text" name="fbs" placeholder="Fasting Blood Sugar (0 or 1)" required>
+            <input type="text" name="restecg" placeholder="Resting ECG Results" required>
+            <input type="text" name="thalach" placeholder="Max Heart Rate Achieved" required>
+            <input type="text" name="exang" placeholder="Exercise Induced Angina (0 or 1)" required>
+            <input type="text" name="oldpeak" placeholder="ST Depression Induced" required>
+            <input type="text" name="slope" placeholder="Slope of Peak Exercise" required>
+            <input type="text" name="ca" placeholder="Number of Major Vessels (0-3)" required>
+            <input type="text" name="thal" placeholder="Thalassemia (0-3)" required>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction_text %}
+            <h2>{{ prediction_text }}</h2>
+        {% endif %}
+    </div>
+</body>
+</html>

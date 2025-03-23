@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harmony of Conditions and Medications</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center text-primary mt-4 text-black"><b>HARMONY OF CONDITIONS AND PREDICTIONS</b></h2>
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <a href="{{ url_for('predict') }}" class="btn btn-danger">Logout</a>
+        </div>
+
+        <form action="{{ url_for('index') }}" method="GET" class="mb-3">
+            <div class="input-group">
+                <input type="text" class="form-control" name="condition" placeholder="Search by Condition..." value="{{ request.args.get('condition', '') }}">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+
+        <a href="{{ url_for('add_review') }}" class="btn btn-success mb-3">Add New Review</a>
+        
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr><center><b>
+                    <th>Patient ID</th>
+                    <th>Drug Name</th>
+                    <th>Condition</th>
+                    <th>Review</th>
+                    <th>Rating</th>
+                    <th>Date</th>
+                    <th>Useful Count</th>
+                    <th>Actions</th></b></center>
+                </tr>
+            </thead>
+            <tbody>
+                {% for review in reviews %}
+                <tr>
+                    <td>{{ review[0] }}</td>
+                    <td>{{ review[1] }}</td>
+                    <td>{{ review[2] }}</td>
+                    <td>{{ review[3] }}</td>
+                    <td>{{ review[4] }}</td>
+                    <td>{{ review[5] }}</td>
+                    <td>{{ review[6] }}</td>
+                    <td>
+                        <a href="{{ url_for('edit_review', patientID=review[0]) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{{ url_for('delete_review', patientID=review[0]) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
